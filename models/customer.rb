@@ -48,6 +48,14 @@ class Customer
         return Film.map_to_objects(films_array)
     end
 
+    def buy_ticket(film)
+        return if @funds < film.price
+        @funds -= film.price
+        update()
+        ticket = Ticket.new({"customer_id" => @id, "film_id" => film.id})
+        ticket.save()
+    end
+
     def self.map_to_objects(customers_array)
         return customers_array.map {|customer_hash| Customer.new(customer_hash)}
     end
