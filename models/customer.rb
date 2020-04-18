@@ -15,13 +15,27 @@ class Customer
     def save()
         sql = "INSERT INTO customers (name, funds) VALUES ($1, $2) RETURNING id;"
         values = [@name, @funds]
-        @id = SqlRunner.run(sql, values)[0]["id"]
+        @id = SqlRunner.run(sql, values)[0]["id"].to_i
     end
 
     # (R)ead
     def self.all()
         customers_array = SqlRunner.run("SELECT * FROM customers;")
         return Customer.map_to_objects(customers_array)
+    end
+
+    # (U)pdate
+    def update()
+        sql = "UPDATE customers SET (name, funds) = ($1, $2) WHERE id = $3;"
+        values = [@name, @funds, @id]
+        SqlRunner.run(sql, values)
+    end
+
+    # (D)elete
+    def delete()
+        sql = "DELETE FROM customers WHERE id = $1;"
+        values = [@id]
+        SqlRunner.run(sql, values)
     end
 
     def self.map_to_objects(customers_array)

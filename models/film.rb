@@ -15,13 +15,27 @@ class Film
     def save()
         sql = "INSERT INTO films (title, price) VALUES ($1, $2) RETURNING id;"
         values = [@title, @price]
-        @id = SqlRunner.run(sql, values)[0]["id"]
+        @id = SqlRunner.run(sql, values)[0]["id"].to_i
     end
 
     # (R)ead
     def self.all()
         films_array = SqlRunner.run("SELECT * FROM films;")
         return Film.map_to_objects(films_array)
+    end
+
+    # (U)pdate
+    def update()
+        sql = "UPDATE films SET (title, price) = ($1, $2) WHERE id = $3;"
+        values = [@title, @price, @id]
+        SqlRunner.run(sql, values)
+    end
+
+    # (D)elete
+    def delete()
+        sql = "DELETE FROM films WHERE id = $1;"
+        values = [@id]
+        SqlRunner.run(sql, values)
     end
 
     def self.map_to_objects(films_array)
