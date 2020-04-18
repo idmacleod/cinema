@@ -18,6 +18,16 @@ class Ticket
         @id = SqlRunner.run(sql, values)[0]["id"]
     end
 
+    # (R)ead
+    def self.all()
+        tickets_array = SqlRunner.run("SELECT * FROM tickets;")
+        return Ticket.map_to_objects(tickets_array)
+    end
+
+    def self.map_to_objects(tickets_array)
+        return tickets_array.map {|ticket_hash| Ticket.new(ticket_hash)}
+    end
+
     def self.delete_all()
         SqlRunner.run("DELETE FROM tickets;")
     end

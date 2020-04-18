@@ -18,6 +18,16 @@ class Customer
         @id = SqlRunner.run(sql, values)[0]["id"]
     end
 
+    # (R)ead
+    def self.all()
+        customers_array = SqlRunner.run("SELECT * FROM customers;")
+        return Customer.map_to_objects(customers_array)
+    end
+
+    def self.map_to_objects(customers_array)
+        return customers_array.map {|customer_hash| Customer.new(customer_hash)}
+    end
+
     def self.delete_all()
         SqlRunner.run("DELETE FROM customers;")
     end

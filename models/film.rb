@@ -18,6 +18,16 @@ class Film
         @id = SqlRunner.run(sql, values)[0]["id"]
     end
 
+    # (R)ead
+    def self.all()
+        films_array = SqlRunner.run("SELECT * FROM films;")
+        return Film.map_to_objects(films_array)
+    end
+
+    def self.map_to_objects(films_array)
+        return films_array.map {|film_hash| Film.new(film_hash)}
+    end
+    
     def self.delete_all()
         SqlRunner.run("DELETE FROM films;")
     end

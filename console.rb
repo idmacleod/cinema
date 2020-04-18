@@ -24,5 +24,9 @@ ticket2.save()
 ticket3 = Ticket.new({"customer_id" => customer2.id, "film_id" => film2.id})
 ticket3.save()
 
+customers = Customer.all()
+films = Film.all()
+tickets = Ticket.all()
+
 binding.pry
 nil
