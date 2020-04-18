@@ -6,7 +6,7 @@ class Customer
     attr_reader :id
 
     def initialize(options)
-        @id = options["id"] if options["id"]
+        @id = options["id"].to_i if options["id"]
         @name = options["name"]
         @funds = options["funds"].to_f
     end
