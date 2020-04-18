@@ -27,6 +27,7 @@ ticket3 = Ticket.new({"customer_id" => customer2.id, "film_id" => film2.id})
 ticket3.save()
 
 customer1.buy_ticket(film3)
+customer1.buy_ticket(film1) # Second ticket for same film
 
 customers = Customer.all()
 films = Film.all()
