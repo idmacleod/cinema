@@ -38,6 +38,16 @@ class Customer
         SqlRunner.run(sql, values)
     end
 
+    def films()
+        sql = "SELECT films.* FROM films
+        INNER JOIN tickets
+        ON films.id = tickets.film_id
+        WHERE tickets.customer_id = $1;"
+        values = [@id]
+        films_array = SqlRunner.run(sql, values)
+        return Film.map_to_objects(films_array)
+    end
+
     def self.map_to_objects(customers_array)
         return customers_array.map {|customer_hash| Customer.new(customer_hash)}
     end
