@@ -21,13 +21,13 @@ film2.save()
 film3 = Film.new({"title" => "Spirited Away", "price" => "5.25"})
 film3.save()
 
-screening1 = Screening.new({"start_time" => "2020-04-20 10:00", "film_id" => film1.id})
+screening1 = Screening.new({"start_time" => "2020-04-20 10:00", "film_id" => film1.id, "initial_capacity" => "100"})
 screening1.save()
-screening2 = Screening.new({"start_time" => "2020-04-20 13:00", "film_id" => film2.id})
+screening2 = Screening.new({"start_time" => "2020-04-20 13:00", "film_id" => film2.id, "initial_capacity" => "50"})
 screening2.save()
-screening3 = Screening.new({"start_time" => "2020-04-21 14:00", "film_id" => film3.id})
+screening3 = Screening.new({"start_time" => "2020-04-21 14:00", "film_id" => film3.id, "initial_capacity" => "20"})
 screening3.save()
-screening4 = Screening.new({"start_time" => "2020-04-22 14:00", "film_id" => film3.id})
+screening4 = Screening.new({"start_time" => "2020-04-22 14:00", "film_id" => film3.id, "initial_capacity" => "2"})
 screening4.save()
 
 ticket1 = customer1.buy_ticket(screening1)
@@ -36,6 +36,7 @@ ticket3 = customer1.buy_ticket(screening2)
 ticket4 = customer1.buy_ticket(screening3)
 ticket5 = customer2.buy_ticket(screening4)
 ticket6 = customer1.buy_ticket(screening1) # Second ticket for same screening
+ticket7 = customer1.buy_ticket(screening4) # Last available ticket
 
 customers = Customer.all()
 films = Film.all()

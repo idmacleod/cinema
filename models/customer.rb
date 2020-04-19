@@ -72,10 +72,12 @@ class Customer
     end
 
     def buy_ticket(screening)
+        return if screening.sold_out?()
         film_price = screening.film().price
         return if @funds < film_price
         @funds -= film_price
         update()
+        screening.sell_ticket()
         ticket = Ticket.new({"customer_id" => @id, "screening_id" => screening.id})
         ticket.save()
         return ticket

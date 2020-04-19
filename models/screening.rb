@@ -9,12 +9,19 @@ class Screening
         @id = options["id"].to_i if options["id"]
         @start_time = options["start_time"]
         @film_id = options["film_id"].to_i
+        @initial_capacity = options["initial_capacity"].to_i
+        if options["current_capacity"]
+            @current_capacity = options["current_capacity"].to_i
+        else
+            @current_capacity = options["initial_capacity"].to_i
+        end
     end
 
     # (C)reate
     def save()
-        sql = "INSERT INTO screenings (start_time, film_id) VALUES ($1, $2) RETURNING id;"
-        values = [@start_time, @film_id]
+        sql = "INSERT INTO screenings (start_time, film_id, initial_capacity, current_capacity)
+        VALUES ($1, $2, $3, $4) RETURNING id;"
+        values = [@start_time, @film_id, @initial_capacity, @current_capacity]
         @id = SqlRunner.run(sql, values)[0]["id"].to_i
     end
 
@@ -26,8 +33,10 @@ class Screening
 
     # (U)pdate
     def update()
-        sql = "UPDATE screenings SET (start_time, film_id) = ($1, $2) WHERE id = $3;"
-        values = [@start_time, @film_id, @id]
+        sql = "UPDATE screenings
+        SET (start_time, film_id, initial_capacity, current_capacity) = ($1, $2, $3, $4)
+        WHERE id = $5;"
+        values = [@start_time, @film_id, @initial_capacity, @current_capacity, @id]
         SqlRunner.run(sql, values)
     end
 
@@ -64,7 +73,17 @@ class Screening
     end
 
     def count_tickets_sold()
-        return tickets_sold().length
+        return @initial_capacity - @current_capacity
+    end
+
+    def sold_out?()
+        return @current_capacity == 0
+    end
+
+    def sell_ticket()
+        return if sold_out?()
+        @current_capacity -= 1
+        update()
     end
 
     def self.map_to_objects(screenings_array)
