@@ -45,6 +45,28 @@ class Screening
         return Film.new(film_hash)
     end
 
+    # Distiguishing distinct customers from tickets sold
+    def customers()
+        sql = "SELECT DISTINCT customers.* FROM customers
+        INNER JOIN tickets
+        ON customers.id = tickets.customer_id
+        WHERE tickets.screening_id = $1;"
+        values = [@id]
+        customers_array = SqlRunner.run(sql, values)
+        return Customer.map_to_objects(customers_array)
+    end
+
+    def tickets_sold()
+        sql = "SELECT * FROM tickets WHERE screening_id = $1;"
+        values = [@id]
+        tickets_array = SqlRunner.run(sql, values)
+        return Ticket.map_to_objects(tickets_array)
+    end
+
+    def count_tickets_sold()
+        return tickets_sold().length
+    end
+
     def self.map_to_objects(screenings_array)
         return screenings_array.map {|screening_hash| Screening.new(screening_hash)}
     end

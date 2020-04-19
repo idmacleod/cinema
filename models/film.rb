@@ -41,16 +41,18 @@ class Film
     # Distiguishing distinct customers from tickets sold
     def customers()
         sql = "SELECT DISTINCT customers.* FROM customers
-        INNER JOIN tickets
-        ON customers.id = tickets.customer_id
-        WHERE tickets.film_id = $1;"
+        INNER JOIN tickets ON customers.id = tickets.customer_id
+        INNER JOIN screenings ON tickets.screening_id = screenings.id
+        WHERE screenings.film_id = $1;"
         values = [@id]
         customers_array = SqlRunner.run(sql, values)
         return Customer.map_to_objects(customers_array)
     end
 
     def tickets_sold()
-        sql = "SELECT * FROM tickets WHERE film_id = $1;"
+        sql = "SELECT * FROM tickets
+        INNER JOIN screenings ON tickets.screening_id = screenings.id
+        WHERE screenings.film_id = $1;"
         values = [@id]
         tickets_array = SqlRunner.run(sql, values)
         return Ticket.map_to_objects(tickets_array)

@@ -67,7 +67,7 @@ class Customer
         return Ticket.map_to_objects(tickets_array)
     end
 
-    def count_tickets()
+    def count_tickets_bought()
         return tickets_bought().length
     end
 
