@@ -27,7 +27,7 @@ screening2 = Screening.new({"start_time" => "2020-04-20 13:00", "film_id" => fil
 screening2.save()
 screening3 = Screening.new({"start_time" => "2020-04-21 14:00", "film_id" => film3.id, "initial_capacity" => "20"})
 screening3.save()
-screening4 = Screening.new({"start_time" => "2020-04-22 14:00", "film_id" => film3.id, "initial_capacity" => "2"})
+screening4 = Screening.new({"start_time" => "2020-04-22 15:00", "film_id" => film3.id, "initial_capacity" => "2"})
 screening4.save()
 
 ticket1 = customer1.buy_ticket(screening1)

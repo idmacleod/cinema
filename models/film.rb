@@ -62,6 +62,18 @@ class Film
         return tickets_sold().length
     end
 
+    def most_popular_time()
+        sql = "SELECT screenings.start_time, COUNT(tickets.id) FROM screenings
+        INNER JOIN tickets ON screenings.id = tickets.screening_id
+        INNER JOIN films ON screenings.film_id = films.id
+        WHERE films.id = $1
+        GROUP BY screenings.start_time
+        ORDER BY COUNT(tickets.id) DESC, screenings.start_time" # Returns earliest screening in case of draw
+        values = [@id]
+        top_result = SqlRunner.run(sql, values).first()
+        return top_result["start_time"]
+    end
+
     def self.map_to_objects(films_array)
         return films_array.map {|film_hash| Film.new(film_hash)}
     end
