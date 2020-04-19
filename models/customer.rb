@@ -38,27 +38,38 @@ class Customer
         SqlRunner.run(sql, values)
     end
 
-    # # Distinguishing distinct films from tickets bought
-    # def films()
-    #     sql = "SELECT DISTINCT films.* FROM films
-    #     INNER JOIN tickets
-    #     ON films.id = tickets.film_id
-    #     WHERE tickets.customer_id = $1;"
-    #     values = [@id]
-    #     films_array = SqlRunner.run(sql, values)
-    #     return Film.map_to_objects(films_array)
-    # end
+    # Distinguishing distinct screenings from tickets bought
+    def screenings()
+        sql = "SELECT DISTINCT screenings.* FROM screenings
+        INNER JOIN tickets
+        ON screenings.id = tickets.screening_id
+        WHERE tickets.customer_id = $1;"
+        values = [@id]
+        screenings_array = SqlRunner.run(sql, values)
+        return Screening.map_to_objects(screenings_array)
+    end
 
-    # def tickets_bought()
-    #     sql = "SELECT * FROM tickets WHERE customer_id = $1;"
-    #     values = [@id]
-    #     tickets_array = SqlRunner.run(sql, values)
-    #     return Ticket.map_to_objects(tickets_array)
-    # end
+    # And similarly for films
+    def films()
+        sql = "SELECT DISTINCT films.* FROM films
+        INNER JOIN screenings ON films.id = screenings.film_id
+        INNER JOIN tickets ON screenings.id = tickets.screening_id
+        WHERE tickets.customer_id = $1;"
+        values = [@id]
+        films_array = SqlRunner.run(sql, values)
+        return Film.map_to_objects(films_array)
+    end
 
-    # def count_tickets_bought()
-    #     return tickets_bought().length
-    # end
+    def tickets_bought()
+        sql = "SELECT * FROM tickets WHERE customer_id = $1;"
+        values = [@id]
+        tickets_array = SqlRunner.run(sql, values)
+        return Ticket.map_to_objects(tickets_array)
+    end
+
+    def count_tickets()
+        return tickets_bought().length
+    end
 
     def buy_ticket(screening)
         film_price = screening.film().price

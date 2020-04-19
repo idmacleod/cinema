@@ -35,6 +35,7 @@ ticket2 = customer2.buy_ticket(screening1)
 ticket3 = customer1.buy_ticket(screening2)
 ticket4 = customer1.buy_ticket(screening3)
 ticket5 = customer2.buy_ticket(screening4)
+ticket6 = customer1.buy_ticket(screening1) # Second ticket for same screening
 
 customers = Customer.all()
 films = Film.all()
