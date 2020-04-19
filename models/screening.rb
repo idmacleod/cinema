@@ -38,6 +38,13 @@ class Screening
         SqlRunner.run(sql, values)
     end
 
+    def film()
+        sql = "SELECT * FROM films WHERE id = $1;"
+        values = [@film_id]
+        film_hash = SqlRunner.run(sql, values).first()
+        return Film.new(film_hash)
+    end
+
     def self.map_to_objects(screenings_array)
         return screenings_array.map {|screening_hash| Screening.new(screening_hash)}
     end

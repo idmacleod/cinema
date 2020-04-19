@@ -30,20 +30,16 @@ screening3.save()
 screening4 = Screening.new({"start_time" => "2020-04-22 14:00", "film_id" => film3.id})
 screening4.save()
 
-# ticket1 = Ticket.new({"customer_id" => customer1.id, "film_id" => film1.id})
-# ticket1.save()
-# ticket2 = Ticket.new({"customer_id" => customer1.id, "film_id" => film2.id})
-# ticket2.save()
-# ticket3 = Ticket.new({"customer_id" => customer2.id, "film_id" => film2.id})
-# ticket3.save()
-
-# customer1.buy_ticket(film3)
-# customer1.buy_ticket(film1) # Second ticket for same film
+ticket1 = customer1.buy_ticket(screening1)
+ticket2 = customer2.buy_ticket(screening1)
+ticket3 = customer1.buy_ticket(screening2)
+ticket4 = customer1.buy_ticket(screening3)
+ticket5 = customer2.buy_ticket(screening4)
 
 customers = Customer.all()
 films = Film.all()
 screenings = Screening.all()
-# tickets = Ticket.all()
+tickets = Ticket.all()
 
 binding.pry
 nil
