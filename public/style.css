@@ -1,0 +1,25 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #e3fdfd;
+  color: #273043;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  background-color: #a6e3e9;
+}
+
+ul.film-list {
+  list-style-type: none;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: #273043;
+}
+
+a:hover {
+  text-decoration: underline;
+}

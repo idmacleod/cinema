@@ -86,7 +86,7 @@ class Film
     def self.map_to_objects(films_array)
         return films_array.map {|film_hash| Film.new(film_hash)}
     end
-    
+
     def self.delete_all()
         SqlRunner.run("DELETE FROM films;")
     end

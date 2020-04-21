@@ -1,7 +1,7 @@
 <h2>Now Showing</h2>
-<ul>
+<ul class="film-list">
     <% for film in @films %>
-    <% page = @films.index(film) + 1 %>
-    <li><a href="/films/<%= page %>"><%= film.title %></a></li>
+        <% page = @films.index(film) + 1 %>
+        <li><a href="/films/<%= page %>"><%= film.title %></a></li>
     <% end %>
 </ul>
