@@ -1,3 +1,7 @@
-<% for film in @films %>
-<p><a href="/films/<%= @films.index(film) + 1%>"><%= film.title %></a></p>
-<% end %>
+<h2>Now Showing</h2>
+<ul>
+    <% for film in @films %>
+    <% page = @films.index(film) + 1 %>
+    <li><a href="/films/<%= page %>"><%= film.title %></a></li>
+    <% end %>
+</ul>

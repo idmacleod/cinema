@@ -13,19 +13,9 @@ get '/index' do
     erb(:index)
 end
 
-films = Film.all()
-
-get '/films/1' do
-    @film = films[0]
-    erb(:film_details)
-end
-
-get '/films/2' do
-    @film = films[1]
-    erb(:film_details)
-end
-
-get '/films/3' do
-    @film = films[2]
+get '/films/:page' do
+    films = Film.all()
+    index = params[:page].to_i - 1
+    @film = films[index]
     erb(:film_details)
 end
