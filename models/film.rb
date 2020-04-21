@@ -40,6 +40,13 @@ class Film
         SqlRunner.run(sql, values)
     end
 
+    def self.find_by_id(id)
+        sql = "SELECT * FROM films WHERE id = $1;"
+        values = [id]
+        film_hash = SqlRunner.run(sql, values).first()
+        return Film.new(film_hash)
+    end
+
     # Distiguishing distinct customers from tickets sold
     def customers()
         sql = "SELECT DISTINCT customers.* FROM customers

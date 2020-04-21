@@ -1,0 +1,3 @@
+<% for film in @films %>
+<p><a href="/films/<%= @films.index(film) + 1%>"><%= film.title %></a></p>
+<% end %>
