@@ -8,14 +8,12 @@ require_relative('models/screening')
 require_relative('models/ticket')
 also_reload('models/*')
 
-get '/index' do
+get '/films' do
     @films = Film.all()
-    erb(:index)
+    erb(:films)
 end
 
-get '/films/:page' do
-    films = Film.all()
-    index = params[:page].to_i - 1
-    @film = films[index]
+get '/films/:id' do
+    @film = Film.find_by_id(params[:id].to_i)
     erb(:film_details)
 end

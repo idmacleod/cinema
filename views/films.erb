@@ -2,6 +2,6 @@
 <ul class="film-list">
     <% for film in @films %>
         <% page = @films.index(film) + 1 %>
-        <li><a href="/films/<%= page %>"><%= film.title %></a></li>
+        <li><a href="/films/<%= film.id %>"><%= film.title %></a></li>
     <% end %>
 </ul>
